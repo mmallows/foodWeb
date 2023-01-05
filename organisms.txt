@@ -1,0 +1,15 @@
+protozoans&Bacteria
+insectsWorms&Snails
+lakeSturgeon
+amphibians
+pumpkinSeed&YellowPerch
+algae&Phytoplankton
+zooplankton
+nativeMussels
+zebraMussels
+alewife&RainbowSmelt
+largemouthBass&NorthernPike
+walleyeLakeTrout&AtlanticSalmon
+seaLamprey
+humans
+cormorant
