@@ -6,7 +6,7 @@ Instructions for use:
 1) create a list of organisms without repeats "organisms.txt" in same folder
 2) create a list of connections representing relationship between organisms ("connections.txt")
 Ex: if bacteria are eaten by insects and insects are eaten by amphibians, the list looks like:
-bacteria insects
+bacteria insects\n
 insects amphibians
 3) compile foodWeb.cpp - ensure executable has organisms.txt and connections.txt in same folder for execution
 4) run the executable. the output will be displayed in the commandline. 
