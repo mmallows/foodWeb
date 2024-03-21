@@ -42,39 +42,32 @@ int main()
     vector<string> orgs;
     int orgCounter = 0;
 
-    list<string> fromFile;
     string nextItem;
 
     ifstream inFile("organisms.txt");
 
-    // list<string>::iterator i = fromFile.begin();
-    vector<string>::iterator i = orgs.begin();
     while (inFile >> nextItem)
-    { // iterate through "organisms.txt" adding each org to list
-        // fromFile.insert(i, nextItem);
+    { // iterate through "organisms.txt" adding each organism to list orgs & counting them
         orgs.push_back(nextItem);
         orgCounter++;
-        i++;
     }
 
     cout << "Organisms:" << endl;
-    vector<string>::iterator ii = orgs.begin();
-    for (ii = orgs.begin(); ii != orgs.end(); ii++)
+    vector<string>::iterator i = orgs.begin();
+    for (i = orgs.begin(); i != orgs.end(); i++)
     {
-        // orgs.push_back(*i);
-        // orgCounter++;
-        cout << *ii << endl;
+        cout << *i << endl;
     }
-    cout << "Total num organisms read in: " << orgCounter << endl
-         << endl;
+    cout << "Total num organisms read in: " << orgCounter << endl;
+        //  << endl;
 
     /*
     Step Two (2):
         Create an adjacency list to mark adjacent nodes (organisms)
     */
 
-    vector<int> adjList[orgCounter];     // 2D VECTOR, adding indices of adjacent organisms
-    int incoming[orgCounter];            // Keep track of (number of) incoming edges
+    vector<int> *adjList = new vector<int>[orgCounter]; //Dynamically create 2d int vector
+    int *incoming = new int[orgCounter]; // Keep track of (number of) incoming edges
     for (int j = 0; j < orgCounter; j++) // initialize incoming to 0
     {
         incoming[j] = 0;
@@ -95,7 +88,8 @@ int main()
         Calculate trophic levels:
     */
 
-    int trop[orgCounter]; // Trophic level array
+    // int trop[orgCounter]; // Trophic level array
+    int *trop = new int(orgCounter);
     for (int j = 0; j < orgCounter; j++)
     { //  Initialize to -1
         trop[j] = -1;
@@ -109,19 +103,18 @@ int main()
         {
             trop[j] = 0;
             bfsq.push(j);
-            // cout << "trophic level 0 - orgIndex: " << j << endl;
         }
     }
 
     while (!bfsq.empty())
     {                                  // Calculate Tropic Levels:
         int currentOrg = bfsq.front(); // Current item:
-        for (vector<int>::iterator i3 = adjList[currentOrg].begin(); i3 != adjList[currentOrg].end(); i3++)
+        for (vector<int>::iterator i2 = adjList[currentOrg].begin(); i2 != adjList[currentOrg].end(); i2++)
         { // Iterate through adjList
-            if (trop[*i3] == -1)
+            if (trop[*i2] == -1)
             {                                     // Only take note of those not found yet or those with larger trop. level than
-                bfsq.push(*i3);                   // Add newly found item to queue
-                trop[*i3] = trop[currentOrg] + 1; // Set trop. level to that of parent +1
+                bfsq.push(*i2);                   // Add newly found item to queue
+                trop[*i2] = trop[currentOrg] + 1; // Set trop. level to that of parent +1
             }
         }
         bfsq.pop(); // Remove current item from queue
@@ -132,8 +125,8 @@ int main()
     */
 
     cout << "Tropic Levels:" << endl;
-    for (ii = orgs.begin(); ii != orgs.end(); ii++)
+    for (i = orgs.begin(); i != orgs.end(); i++)
     {
-        cout << *ii << ": " << trop[index(*ii, orgs)] << endl;
+        cout << *i << ": " << trop[index(*i, orgs)] << endl;
     }
 }
